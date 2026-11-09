@@ -1,0 +1,213 @@
+{% extends "karyawan/base_karyawan.html" %}
+
+{% block title %}Profil Saya{% endblock %}
+
+{% block page_title %}Profil Saya{% endblock %}
+
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+        <h2>Profil Saya</h2>
+        <p>
+            Informasi data diri karyawan yang terdaftar pada sistem.
+        </p>
+    </div>
+
+</div>
+
+
+<div class="profile-container">
+
+    <!-- HEADER PROFIL -->
+    <div class="profile-header">
+
+        <div class="profile-avatar">
+            <i class="bi bi-person-fill"></i>
+        </div>
+
+        <div class="profile-name">
+
+            <h3>
+                {{ karyawan.nama }}
+            </h3>
+
+            <p>
+                <i class="bi bi-briefcase-fill"></i>
+                {{ karyawan.jabatan }}
+            </p>
+
+            <span class="profile-status">
+                <i class="bi bi-check-circle-fill"></i>
+                {{ karyawan.status }}
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- DATA PROFIL -->
+    <div class="profile-body">
+
+        <div class="profile-section-title">
+
+            <div class="section-icon">
+                <i class="bi bi-person-vcard-fill"></i>
+            </div>
+
+            <div>
+                <h5>Informasi Pribadi</h5>
+                <p>Data pribadi yang terdaftar pada sistem.</p>
+            </div>
+
+        </div>
+
+
+        <div class="profile-grid">
+
+            <!-- NIK -->
+            <div class="profile-item">
+
+                <div class="profile-item-icon">
+                    <i class="bi bi-card-text"></i>
+                </div>
+
+                <div>
+                    <span>NIK</span>
+                    <strong>{{ karyawan.nik }}</strong>
+                </div>
+
+            </div>
+
+
+            <!-- NAMA -->
+            <div class="profile-item">
+
+                <div class="profile-item-icon">
+                    <i class="bi bi-person"></i>
+                </div>
+
+                <div>
+                    <span>Nama Lengkap</span>
+                    <strong>{{ karyawan.nama }}</strong>
+                </div>
+
+            </div>
+
+
+            <!-- JABATAN -->
+            <div class="profile-item">
+
+                <div class="profile-item-icon">
+                    <i class="bi bi-briefcase"></i>
+                </div>
+
+                <div>
+                    <span>Jabatan</span>
+                    <strong>{{ karyawan.jabatan }}</strong>
+                </div>
+
+            </div>
+
+
+            <!-- BAGIAN -->
+            <div class="profile-item">
+
+                <div class="profile-item-icon">
+                    <i class="bi bi-building"></i>
+                </div>
+
+                <div>
+                    <span>Bagian</span>
+                    <strong>{{ karyawan.bagian }}</strong>
+                </div>
+
+            </div>
+
+
+            <!-- NO HP -->
+            <div class="profile-item">
+
+                <div class="profile-item-icon">
+                    <i class="bi bi-telephone"></i>
+                </div>
+
+                <div>
+                    <span>No. HP</span>
+                    <strong>
+                        {{ karyawan.no_hp or '-' }}
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <!-- STATUS -->
+            <div class="profile-item">
+
+                <div class="profile-item-icon">
+                    <i class="bi bi-check-circle"></i>
+                </div>
+
+                <div>
+                    <span>Status Karyawan</span>
+
+                    <strong class="status-active">
+                        {{ karyawan.status }}
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ALAMAT -->
+        <div class="profile-address">
+
+            <div class="profile-item-icon">
+                <i class="bi bi-geo-alt"></i>
+            </div>
+
+            <div>
+
+                <span>Alamat</span>
+
+                <strong>
+                    {{ karyawan.alamat or '-' }}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <div class="profile-footer">
+
+        <a
+            href="{{ url_for('dashboard_karyawan') }}"
+            class="btn btn-secondary"
+        >
+            <i class="bi bi-arrow-left"></i>
+            Kembali ke Dashboard
+        </a>
+
+        <a
+            href="{{ url_for('ajukan_cuti') }}"
+            class="btn btn-primary"
+        >
+            <i class="bi bi-file-earmark-plus"></i>
+            Ajukan Izin / Cuti
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

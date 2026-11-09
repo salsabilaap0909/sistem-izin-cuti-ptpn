@@ -1,0 +1,219 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}
+Data Karyawan
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h2>Data Karyawan</h2>
+
+        <p>
+            Kelola data karyawan PTPN IV PKS Pulo Tiga.
+        </p>
+
+    </div>
+
+    <a href="{{ url_for('tambah_karyawan') }}"
+       class="btn btn-primary">
+
+        <i class="bi bi-person-plus-fill me-1"></i>
+        Tambah Karyawan
+
+    </a>
+
+</div>
+
+
+<div class="content-card">
+
+    <div class="table-responsive">
+
+        <table class="table custom-table align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>No</th>
+                    <th>NIK</th>
+                    <th>Nama</th>
+                    <th>Jabatan</th>
+                    <th>Bagian</th>
+                    <th>No. HP</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% if karyawan %}
+
+                    {% for data in karyawan %}
+
+                    <tr>
+
+                        <td>
+                            {{ loop.index }}
+                        </td>
+
+
+                        <td>
+                            {{ data.nik }}
+                        </td>
+
+
+                        <td>
+
+                            <div class="employee-name">
+
+                                <div class="employee-icon">
+
+                                    <i class="bi bi-person-fill"></i>
+
+                                </div>
+
+                                <strong>
+                                    {{ data.nama }}
+                                </strong>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            {{ data.jabatan }}
+                        </td>
+
+
+                        <td>
+                            {{ data.bagian }}
+                        </td>
+
+
+                        <td>
+                            {{ data.no_hp or '-' }}
+                        </td>
+
+
+                        <td>
+
+                            {% if data.status == 'Aktif' %}
+
+                                <span class="status-badge approved">
+
+                                    <i class="bi bi-check-circle"></i>
+                                    Aktif
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="status-badge rejected">
+
+                                    <i class="bi bi-x-circle"></i>
+                                    Tidak Aktif
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="d-flex gap-2">
+
+                                <!-- EDIT -->
+
+                                <a href="{{ url_for(
+                                    'edit_karyawan',
+                                    id_karyawan=data.id_karyawan
+                                ) }}"
+                                   class="btn btn-sm btn-outline-primary"
+                                   title="Edit Karyawan">
+
+                                    <i class="bi bi-pencil"></i>
+
+                                </a>
+
+
+                                <!-- HAPUS -->
+
+                                <a href="{{ url_for(
+                                    'hapus_karyawan',
+                                    id_karyawan=data.id_karyawan
+                                ) }}"
+                                   class="btn btn-sm btn-outline-danger"
+                                   title="Hapus Karyawan"
+                                   onclick="return confirm(
+                                       'Yakin ingin menghapus karyawan ini?'
+                                   );">
+
+                                    <i class="bi bi-trash"></i>
+
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="8"
+                            class="text-center py-5">
+
+                            <div class="empty-state">
+
+                                <i class="bi bi-people"></i>
+
+                                <h5>
+                                    Belum ada data karyawan
+                                </h5>
+
+                                <p>
+                                    Silakan tambahkan data karyawan terlebih dahulu.
+                                </p>
+
+                                <a href="{{ url_for('tambah_karyawan') }}"
+                                   class="btn btn-primary">
+
+                                    <i class="bi bi-person-plus me-1"></i>
+                                    Tambah Karyawan
+
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                {% endif %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

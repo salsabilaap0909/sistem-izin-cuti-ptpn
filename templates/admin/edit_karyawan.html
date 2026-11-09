@@ -1,0 +1,226 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}
+Edit Karyawan
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+        <h2>Edit Karyawan</h2>
+
+        <p>
+            Perbarui data karyawan PTPN IV PKS Pulo Tiga.
+        </p>
+    </div>
+
+    <a href="{{ url_for('data_karyawan') }}"
+       class="btn btn-secondary">
+
+        <i class="bi bi-arrow-left me-1"></i>
+        Kembali
+
+    </a>
+
+</div>
+
+
+<div class="row justify-content-center">
+
+    <div class="col-xl-9">
+
+        <div class="content-card">
+
+            <div class="card-header-custom">
+
+                <div>
+
+                    <h5>
+                        Edit Data Karyawan
+                    </h5>
+
+                    <p>
+                        Silakan perbarui informasi karyawan.
+                    </p>
+
+                </div>
+
+                <i class="bi bi-person-gear"></i>
+
+            </div>
+
+
+            <form method="POST">
+
+                <!-- DATA KARYAWAN -->
+
+                <div class="section-title">
+
+                    <i class="bi bi-person-vcard"></i>
+
+                    Data Karyawan
+
+                </div>
+
+
+                <div class="row g-3 mb-4">
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            NIK
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="nik"
+                               class="form-control"
+                               value="{{ karyawan.nik }}"
+                               required>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Nama Lengkap
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="nama"
+                               class="form-control"
+                               value="{{ karyawan.nama }}"
+                               required>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Jabatan
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="jabatan"
+                               class="form-control"
+                               value="{{ karyawan.jabatan }}"
+                               required>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Bagian
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="bagian"
+                               class="form-control"
+                               value="{{ karyawan.bagian }}"
+                               required>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Nomor HP
+                        </label>
+
+                        <input type="text"
+                               name="no_hp"
+                               class="form-control"
+                               value="{{ karyawan.no_hp or '' }}"
+                               placeholder="08xxxxxxxxxx">
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Status
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <select name="status"
+                                class="form-select"
+                                required>
+
+                            <option value="Aktif"
+                                {% if karyawan.status == 'Aktif' %}
+                                    selected
+                                {% endif %}>
+                                Aktif
+                            </option>
+
+                            <option value="Tidak Aktif"
+                                {% if karyawan.status == 'Tidak Aktif' %}
+                                    selected
+                                {% endif %}>
+                                Tidak Aktif
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="col-12">
+
+                        <label class="form-label">
+                            Alamat
+                        </label>
+
+                        <textarea name="alamat"
+                                  class="form-control"
+                                  rows="3"
+                                  placeholder="Masukkan alamat">{{ karyawan.alamat or '' }}</textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- AKSI -->
+
+                <div class="form-action mt-4">
+
+                    <a href="{{ url_for('data_karyawan') }}"
+                       class="btn btn-secondary">
+
+                        <i class="bi bi-arrow-left me-1"></i>
+                        Batal
+
+                    </a>
+
+
+                    <button type="submit"
+                            class="btn btn-primary">
+
+                        <i class="bi bi-save me-1"></i>
+                        Simpan Perubahan
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

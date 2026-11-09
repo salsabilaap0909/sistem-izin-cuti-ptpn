@@ -1,0 +1,318 @@
+{% extends "karyawan/base_karyawan.html" %}
+
+{% block title %}Ajukan Izin & Cuti{% endblock %}
+
+{% block page_title %}Ajukan Izin & Cuti{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h2>Ajukan Izin & Cuti</h2>
+        <p>Silakan isi formulir pengajuan izin atau cuti dengan lengkap.</p>
+    </div>
+
+    <a
+        href="{{ url_for('riwayat_karyawan') }}"
+        class="btn btn-secondary"
+    >
+        <i class="bi bi-clock-history"></i>
+        Riwayat Pengajuan
+    </a>
+</div>
+
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-8">
+
+        <div class="content-card">
+
+            <div class="card-title mb-4">
+                <i class="bi bi-file-earmark-plus"></i>
+                Form Pengajuan
+            </div>
+
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+                <!-- NAMA KARYAWAN -->
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Nama Karyawan
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="{{ karyawan.nama }}"
+                        readonly
+                    >
+
+                </div>
+
+
+                <!-- NIK -->
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        NIK
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="{{ karyawan.nik }}"
+                        readonly
+                    >
+
+                </div>
+
+
+                <!-- BAGIAN -->
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Bagian
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="{{ karyawan.bagian }}"
+                        readonly
+                    >
+
+                </div>
+
+
+                <!-- JENIS CUTI -->
+                <div class="mb-3">
+
+                    <label for="id_jenis" class="form-label">
+                        Jenis Izin / Cuti
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <select
+                        name="id_jenis"
+                        id="id_jenis"
+                        class="form-select"
+                        required
+                    >
+
+                        <option value="">
+                            -- Pilih Jenis Izin / Cuti --
+                        </option>
+
+                        {% for jenis in jenis_cuti %}
+
+                        <option value="{{ jenis.id_jenis }}">
+                            {{ jenis.nama_jenis }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- TANGGAL -->
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label
+                            for="tanggal_mulai"
+                            class="form-label"
+                        >
+                            Tanggal Mulai
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <input
+                            type="date"
+                            name="tanggal_mulai"
+                            id="tanggal_mulai"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="col-md-6 mb-3">
+
+                        <label
+                            for="tanggal_selesai"
+                            class="form-label"
+                        >
+                            Tanggal Selesai
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <input
+                            type="date"
+                            name="tanggal_selesai"
+                            id="tanggal_selesai"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- JUMLAH HARI -->
+                <div class="mb-3">
+
+                    <label
+                        for="jumlah_hari"
+                        class="form-label"
+                    >
+                        Jumlah Hari
+                    </label>
+
+                    <input
+                        type="text"
+                        id="jumlah_hari"
+                        class="form-control"
+                        value=""
+                        placeholder="Otomatis dihitung"
+                        readonly
+                    >
+
+                    <small class="text-muted">
+                        Jumlah hari akan dihitung otomatis berdasarkan tanggal mulai dan tanggal selesai.
+                    </small>
+
+                </div>
+
+
+                <!-- ALASAN -->
+                <div class="mb-3">
+
+                    <label
+                        for="alasan"
+                        class="form-label"
+                    >
+                        Alasan
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <textarea
+                        name="alasan"
+                        id="alasan"
+                        class="form-control"
+                        rows="5"
+                        placeholder="Tuliskan alasan pengajuan izin atau cuti..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <!-- FILE -->
+                <div class="mb-4">
+
+                    <label
+                        for="file_pendukung"
+                        class="form-label"
+                    >
+                        File Pendukung
+                    </label>
+
+                    <input
+                        type="file"
+                        name="file_pendukung"
+                        id="file_pendukung"
+                        class="form-control"
+                    >
+
+                    <small class="text-muted">
+                        File pendukung bersifat opsional.
+                    </small>
+
+                </div>
+
+
+                <!-- BUTTON -->
+                <div class="d-flex gap-2">
+
+                    <a
+                        href="{{ url_for('dashboard_karyawan') }}"
+                        class="btn btn-secondary"
+                    >
+                        <i class="bi bi-arrow-left"></i>
+                        Batal
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        onclick="return confirm('Apakah data pengajuan sudah benar?')"
+                    >
+                        <i class="bi bi-send"></i>
+                        Kirim Pengajuan
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+    const tanggalMulai = document.getElementById("tanggal_mulai");
+    const tanggalSelesai = document.getElementById("tanggal_selesai");
+    const jumlahHari = document.getElementById("jumlah_hari");
+
+    function hitungJumlahHari() {
+
+        if (!tanggalMulai.value || !tanggalSelesai.value) {
+            jumlahHari.value = "";
+            return;
+        }
+
+        const mulai = new Date(tanggalMulai.value);
+        const selesai = new Date(tanggalSelesai.value);
+
+        if (selesai < mulai) {
+            jumlahHari.value = "";
+            return;
+        }
+
+        const selisih =
+            selesai.getTime() - mulai.getTime();
+
+        const hari =
+            Math.floor(
+                selisih / (1000 * 60 * 60 * 24)
+            ) + 1;
+
+        jumlahHari.value = hari + " hari";
+    }
+
+    tanggalMulai.addEventListener(
+        "change",
+        hitungJumlahHari
+    );
+
+    tanggalSelesai.addEventListener(
+        "change",
+        hitungJumlahHari
+    );
+</script>
+
+{% endblock %}

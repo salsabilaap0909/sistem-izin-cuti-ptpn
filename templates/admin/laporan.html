@@ -1,0 +1,262 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}
+Laporan Pengajuan
+{% endblock %}
+
+{% block page_title %}
+Laporan Pengajuan
+{% endblock %}
+
+{% block content %}
+
+<!-- STATISTIK -->
+
+<div class="row g-4 mb-4">
+
+    <div class="col-md-6 col-xl-3">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="bi bi-files"></i>
+            </div>
+
+            <div>
+                <span>Total Pengajuan</span>
+                <h3>{{ total }}</h3>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-6 col-xl-3">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="bi bi-hourglass-split"></i>
+            </div>
+
+            <div>
+                <span>Menunggu</span>
+                <h3>{{ menunggu }}</h3>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-6 col-xl-3">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="bi bi-check-circle"></i>
+            </div>
+
+            <div>
+                <span>Disetujui</span>
+                <h3>{{ disetujui }}</h3>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-6 col-xl-3">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="bi bi-x-circle"></i>
+            </div>
+
+            <div>
+                <span>Ditolak</span>
+                <h3>{{ ditolak }}</h3>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- LAPORAN -->
+
+<div class="content-card">
+
+    <div class="card-header-custom">
+
+        <div>
+            <h5>Data Laporan Pengajuan</h5>
+
+            <p>
+                Daftar seluruh pengajuan izin dan cuti karyawan.
+            </p>
+        </div>
+
+        <div>
+
+            <button onclick="window.print()"
+                    class="btn btn-outline-secondary">
+
+                <i class="bi bi-printer me-1"></i>
+                Cetak
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="table-responsive">
+
+        <table class="table custom-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>No</th>
+
+                    <th>Karyawan</th>
+
+                    <th>Bagian</th>
+
+                    <th>Jenis Cuti</th>
+
+                    <th>Tanggal</th>
+
+                    <th>Hari</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% if laporan %}
+
+                    {% for item in laporan %}
+
+                    <tr>
+
+                        <td>
+                            {{ loop.index }}
+                        </td>
+
+
+                        <td>
+
+                            <strong>
+                                {{ item.nama }}
+                            </strong>
+
+                            <br>
+
+                            <small class="text-muted">
+                                NIK: {{ item.nik }}
+                            </small>
+
+                        </td>
+
+
+                        <td>
+                            {{ item.bagian }}
+                        </td>
+
+
+                        <td>
+                            {{ item.nama_jenis }}
+                        </td>
+
+
+                        <td>
+
+                            {{ item.tanggal_mulai.strftime('%d-%m-%Y') }}
+
+                            <br>
+
+                            <small class="text-muted">
+                                s/d
+                                {{ item.tanggal_selesai.strftime('%d-%m-%Y') }}
+                            </small>
+
+                        </td>
+
+
+                        <td>
+                            {{ item.jumlah_hari }} hari
+                        </td>
+
+
+                        <td>
+
+                            {% if item.status == "Menunggu" %}
+
+                                <span class="status-badge waiting">
+                                    <i class="bi bi-hourglass-split"></i>
+                                    Menunggu
+                                </span>
+
+                            {% elif item.status == "Disetujui" %}
+
+                                <span class="status-badge approved">
+                                    <i class="bi bi-check-circle"></i>
+                                    Disetujui
+                                </span>
+
+                            {% elif item.status == "Ditolak" %}
+
+                                <span class="status-badge rejected">
+                                    <i class="bi bi-x-circle"></i>
+                                    Ditolak
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="7"
+                            class="text-center py-5">
+
+                            <i class="bi bi-inbox fs-1 text-muted"></i>
+
+                            <p class="mt-3 text-muted">
+                                Belum ada data pengajuan.
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                {% endif %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

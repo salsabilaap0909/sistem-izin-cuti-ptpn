@@ -1,0 +1,225 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}
+Tambah Karyawan
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h2>Tambah Karyawan</h2>
+
+        <p>
+            Tambahkan data karyawan baru.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="content-card">
+
+    <form method="POST">
+
+        <div class="row g-4">
+
+            <!-- DATA KARYAWAN -->
+
+            <div class="col-md-6">
+
+                <h5 class="form-section-title">
+                    <i class="bi bi-person-fill"></i>
+                    Data Karyawan
+                </h5>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        NIK
+                    </label>
+
+                    <input
+                        type="text"
+                        name="nik"
+                        class="form-control"
+                        placeholder="Masukkan NIK"
+                        required>
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Nama Lengkap
+                    </label>
+
+                    <input
+                        type="text"
+                        name="nama"
+                        class="form-control"
+                        placeholder="Masukkan nama lengkap"
+                        required>
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Jabatan
+                    </label>
+
+                    <input
+                        type="text"
+                        name="jabatan"
+                        class="form-control"
+                        placeholder="Contoh: Staff Administrasi"
+                        required>
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Bagian
+                    </label>
+
+                    <input
+                        type="text"
+                        name="bagian"
+                        class="form-control"
+                        placeholder="Contoh: Administrasi"
+                        required>
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        No. HP
+                    </label>
+
+                    <input
+                        type="text"
+                        name="no_hp"
+                        class="form-control"
+                        placeholder="08xxxxxxxxxx">
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Alamat
+                    </label>
+
+                    <textarea
+                        name="alamat"
+                        class="form-control"
+                        rows="3"
+                        placeholder="Masukkan alamat"></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- AKUN LOGIN -->
+
+            <div class="col-md-6">
+
+                <h5 class="form-section-title">
+                    <i class="bi bi-shield-lock-fill"></i>
+                    Akun Login
+                </h5>
+
+
+                <div class="account-info">
+
+                    <i class="bi bi-info-circle"></i>
+
+                    <p>
+                        Akun ini digunakan oleh karyawan
+                        untuk masuk ke sistem dan mengajukan
+                        izin atau cuti.
+                    </p>
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        name="username"
+                        class="form-control"
+                        placeholder="Buat username"
+                        required>
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="Buat password"
+                        required>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <hr class="my-4">
+
+
+        <div class="d-flex justify-content-end gap-2">
+
+            <a href="{{ url_for('data_karyawan') }}"
+               class="btn btn-light border">
+
+                Batal
+
+            </a>
+
+
+            <button
+                type="submit"
+                class="btn btn-primary">
+
+                <i class="bi bi-save"></i>
+
+                Simpan Karyawan
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

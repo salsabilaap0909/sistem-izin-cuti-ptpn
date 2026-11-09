@@ -1,0 +1,275 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Detail Pengajuan{% endblock %}
+
+{% block page_title %}Detail Pengajuan{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h2>Detail Pengajuan</h2>
+        <p>Informasi lengkap pengajuan izin dan cuti karyawan.</p>
+    </div>
+
+    <a href="{{ url_for('data_pengajuan') }}" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i>
+        Kembali
+    </a>
+</div>
+
+
+<div class="row g-4">
+
+    <!-- DATA KARYAWAN -->
+    <div class="col-lg-5">
+
+        <div class="content-card h-100">
+
+            <div class="card-title mb-4">
+                <i class="bi bi-person-badge"></i>
+                Data Karyawan
+            </div>
+
+            <div class="detail-list">
+
+                <div class="detail-item">
+                    <span>NIK</span>
+                    <strong>{{ pengajuan.nik }}</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span>Nama</span>
+                    <strong>{{ pengajuan.nama }}</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span>Jabatan</span>
+                    <strong>{{ pengajuan.jabatan }}</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span>Bagian</span>
+                    <strong>{{ pengajuan.bagian }}</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span>No. HP</span>
+                    <strong>{{ pengajuan.no_hp or '-' }}</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DETAIL PENGAJUAN -->
+    <div class="col-lg-7">
+
+        <div class="content-card h-100">
+
+            <div class="card-title mb-4">
+                <i class="bi bi-file-earmark-text"></i>
+                Informasi Pengajuan
+            </div>
+
+            <div class="detail-list">
+
+                <div class="detail-item">
+                    <span>Jenis Cuti</span>
+                    <strong>{{ pengajuan.nama_jenis }}</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span>Tanggal Pengajuan</span>
+                    <strong>
+                        {{ pengajuan.tanggal_pengajuan.strftime('%d-%m-%Y %H:%M') }}
+                    </strong>
+                </div>
+
+                <div class="detail-item">
+                    <span>Tanggal Mulai</span>
+                    <strong>
+                        {{ pengajuan.tanggal_mulai.strftime('%d-%m-%Y') }}
+                    </strong>
+                </div>
+
+                <div class="detail-item">
+                    <span>Tanggal Selesai</span>
+                    <strong>
+                        {{ pengajuan.tanggal_selesai.strftime('%d-%m-%Y') }}
+                    </strong>
+                </div>
+
+                <div class="detail-item">
+                    <span>Jumlah Hari</span>
+                    <strong>
+                        {{ pengajuan.jumlah_hari }} hari
+                    </strong>
+                </div>
+
+                <div class="detail-item">
+                    <span>Status</span>
+
+                    {% if pengajuan.status == 'Menunggu' %}
+                        <span class="badge bg-warning text-dark">
+                            Menunggu
+                        </span>
+
+                    {% elif pengajuan.status == 'Disetujui' %}
+                        <span class="badge bg-success">
+                            Disetujui
+                        </span>
+
+                    {% elif pengajuan.status == 'Ditolak' %}
+                        <span class="badge bg-danger">
+                            Ditolak
+                        </span>
+
+                    {% endif %}
+                </div>
+
+            </div>
+
+
+            <!-- ALASAN -->
+            <div class="mt-4">
+
+                <h6 class="fw-bold">
+                    <i class="bi bi-chat-left-text"></i>
+                    Alasan
+                </h6>
+
+                <div class="reason-box">
+                    {{ pengajuan.alasan }}
+                </div>
+
+            </div>
+
+
+            <!-- FILE PENDUKUNG -->
+            {% if pengajuan.file_pendukung %}
+
+            <div class="mt-4">
+
+                <h6 class="fw-bold">
+                    <i class="bi bi-paperclip"></i>
+                    File Pendukung
+                </h6>
+
+                <a
+                    href="{{ url_for('static', filename='uploads/' + pengajuan.file_pendukung) }}"
+                    target="_blank"
+                    class="btn btn-outline-primary btn-sm"
+                >
+                    <i class="bi bi-file-earmark-arrow-down"></i>
+                    Lihat File
+                </a>
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- KETERANGAN ADMIN -->
+            {% if pengajuan.keterangan_admin %}
+
+            <div class="mt-4">
+
+                <h6 class="fw-bold">
+                    <i class="bi bi-chat-square-text"></i>
+                    Keterangan Admin
+                </h6>
+
+                <div class="reason-box">
+                    {{ pengajuan.keterangan_admin }}
+                </div>
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- PROSES PENGAJUAN -->
+            {% if pengajuan.status == 'Menunggu' %}
+
+            <hr class="my-4">
+
+            <div class="card-title mb-3">
+                <i class="bi bi-check2-square"></i>
+                Proses Pengajuan
+            </div>
+
+            <form
+                method="POST"
+                action="{{ url_for('proses_pengajuan', id_pengajuan=pengajuan.id_pengajuan) }}"
+            >
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Status Pengajuan
+                    </label>
+
+                    <select
+                        name="status"
+                        class="form-select"
+                        required
+                    >
+                        <option value="">-- Pilih Status --</option>
+
+                        <option value="Disetujui">
+                            Disetujui
+                        </option>
+
+                        <option value="Ditolak">
+                            Ditolak
+                        </option>
+
+                        <option value="Menunggu">
+                            Menunggu
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Keterangan Admin
+                    </label>
+
+                    <textarea
+                        name="keterangan_admin"
+                        class="form-control"
+                        rows="4"
+                        placeholder="Tambahkan keterangan jika diperlukan..."
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    onclick="return confirm('Apakah status pengajuan ini akan diproses?')"
+                >
+                    <i class="bi bi-check-circle"></i>
+                    Simpan Proses
+                </button>
+
+            </form>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

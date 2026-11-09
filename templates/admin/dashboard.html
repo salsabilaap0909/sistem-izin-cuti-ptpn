@@ -1,0 +1,463 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}
+Dashboard Admin
+{% endblock %}
+
+{% block content %}
+
+<!-- HEADER -->
+
+<div class="page-header">
+
+    <div>
+
+        <h2>Dashboard</h2>
+
+        <p>
+            Selamat datang di Sistem Izin & Cuti Karyawan.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- STATISTIK -->
+
+<div class="row g-4 mb-4">
+
+    <!-- TOTAL KARYAWAN -->
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="bi bi-people-fill"></i>
+            </div>
+
+            <div>
+
+                <span>Total Karyawan</span>
+
+                <h3>
+                    {{ total_karyawan }}
+                </h3>
+
+                <small>
+                    Karyawan aktif
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MENUNGGU -->
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon warning">
+
+                <i class="bi bi-hourglass-split"></i>
+
+            </div>
+
+            <div>
+
+                <span>Menunggu</span>
+
+                <h3>
+                    {{ pengajuan_menunggu }}
+                </h3>
+
+                <small>
+                    Pengajuan perlu diproses
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DISETUJUI -->
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon success">
+
+                <i class="bi bi-check-circle-fill"></i>
+
+            </div>
+
+            <div>
+
+                <span>Disetujui</span>
+
+                <h3>
+                    {{ pengajuan_disetujui }}
+                </h3>
+
+                <small>
+                    Pengajuan disetujui
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DITOLAK -->
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon danger">
+
+                <i class="bi bi-x-circle-fill"></i>
+
+            </div>
+
+            <div>
+
+                <span>Ditolak</span>
+
+                <h3>
+                    {{ pengajuan_ditolak }}
+                </h3>
+
+                <small>
+                    Pengajuan ditolak
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- INFORMASI -->
+
+<div class="row g-4">
+
+
+    <!-- PENGAJUAN TERBARU -->
+
+    <div class="col-lg-8">
+
+        <div class="content-card">
+
+            <div class="card-header-custom">
+
+                <div>
+
+                    <h5>
+                        Pengajuan Terbaru
+                    </h5>
+
+                    <small>
+                        Daftar pengajuan izin dan cuti terbaru
+                    </small>
+
+                </div>
+
+                <a href="{{ url_for('data_pengajuan') }}"
+                   class="btn btn-sm btn-primary">
+
+                    Lihat Semua
+
+                    <i class="bi bi-arrow-right ms-1"></i>
+
+                </a>
+
+            </div>
+
+
+            {% if pengajuan_terbaru %}
+
+            <div class="table-responsive">
+
+                <table class="table custom-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>No</th>
+
+                            <th>Karyawan</th>
+
+                            <th>Jenis</th>
+
+                            <th>Periode</th>
+
+                            <th>Hari</th>
+
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for item in pengajuan_terbaru %}
+
+                        <tr>
+
+                            <td>
+                                {{ loop.index }}
+                            </td>
+
+
+                            <td>
+
+                                <strong>
+                                    {{ item.nama }}
+                                </strong>
+
+                                <br>
+
+                                <small class="text-muted">
+                                    NIK: {{ item.nik }}
+                                </small>
+
+                            </td>
+
+
+                            <td>
+                                {{ item.nama_jenis }}
+                            </td>
+
+
+                            <td>
+
+                                {{ item.tanggal_mulai.strftime('%d-%m-%Y') }}
+
+                                <br>
+
+                                <small class="text-muted">
+
+                                    s/d
+
+                                    {{ item.tanggal_selesai.strftime('%d-%m-%Y') }}
+
+                                </small>
+
+                            </td>
+
+
+                            <td>
+                                {{ item.jumlah_hari }} hari
+                            </td>
+
+
+                            <td>
+
+                                {% if item.status == "Menunggu" %}
+
+                                <span class="status-badge waiting">
+
+                                    <i class="bi bi-hourglass-split"></i>
+
+                                    Menunggu
+
+                                </span>
+
+
+                                {% elif item.status == "Disetujui" %}
+
+                                <span class="status-badge approved">
+
+                                    <i class="bi bi-check-circle"></i>
+
+                                    Disetujui
+
+                                </span>
+
+
+                                {% elif item.status == "Ditolak" %}
+
+                                <span class="status-badge rejected">
+
+                                    <i class="bi bi-x-circle"></i>
+
+                                    Ditolak
+
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            {% else %}
+
+            <div class="empty-state">
+
+                <i class="bi bi-inbox"></i>
+
+                <h5>
+                    Belum ada pengajuan
+                </h5>
+
+                <p>
+                    Pengajuan cuti dari karyawan akan
+                    muncul di sini.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- INFORMASI SISTEM -->
+
+    <div class="col-lg-4">
+
+        <div class="content-card">
+
+            <div class="card-header-custom">
+
+                <div>
+
+                    <h5>
+                        Informasi
+                    </h5>
+
+                    <small>
+                        Informasi sistem aplikasi
+                    </small>
+
+                </div>
+
+                <i class="bi bi-info-circle"></i>
+
+            </div>
+
+
+            <div class="info-list">
+
+
+                <!-- PERUSAHAAN -->
+
+                <div class="info-item">
+
+                    <i class="bi bi-building"></i>
+
+                    <div>
+
+                        <strong>
+                            Perusahaan
+                        </strong>
+
+                        <span>
+                            PTPN IV
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- UNIT -->
+
+                <div class="info-item">
+
+                    <i class="bi bi-geo-alt"></i>
+
+                    <div>
+
+                        <strong>
+                            Unit
+                        </strong>
+
+                        <span>
+                            PKS Pulo Tiga
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SISTEM -->
+
+                <div class="info-item">
+
+                    <i class="bi bi-calendar3"></i>
+
+                    <div>
+
+                        <strong>
+                            Sistem
+                        </strong>
+
+                        <span>
+                            Izin & Cuti Karyawan
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STATUS SISTEM -->
+
+                <div class="info-item">
+
+                    <i class="bi bi-check-circle"></i>
+
+                    <div>
+
+                        <strong>
+                            Status
+                        </strong>
+
+                        <span>
+                            Sistem Aktif
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

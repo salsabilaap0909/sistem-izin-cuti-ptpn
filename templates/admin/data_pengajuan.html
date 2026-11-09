@@ -1,0 +1,517 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}
+Data Pengajuan Izin & Cuti
+{% endblock %}
+
+{% block page_title %}
+Data Pengajuan Izin & Cuti
+{% endblock %}
+
+{% block content %}
+
+<div class="content-card mb-4">
+
+    <div class="card-header-custom">
+        <div>
+            <h5>Data Pengajuan Izin & Cuti</h5>
+            <p>Kelola seluruh pengajuan izin dan cuti karyawan.</p>
+        </div>
+
+        <div class="pengajuan-header-icon">
+            <i class="bi bi-file-earmark-text"></i>
+        </div>
+    </div>
+
+    <div class="row g-3">
+
+        <div class="col-md-4">
+            <div class="info-box">
+                <div class="info-box-icon">
+                    <i class="bi bi-files"></i>
+                </div>
+
+                <div>
+                    <small>Total Pengajuan</small>
+                    <h4>{{ pengajuan|length }}</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="info-box">
+                <div class="info-box-icon">
+                    <i class="bi bi-hourglass-split"></i>
+                </div>
+
+                <div>
+                    <small>Perlu Diproses</small>
+                    <h4 id="jumlahMenunggu">0</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="info-box">
+                <div class="info-box-icon">
+                    <i class="bi bi-calendar-check"></i>
+                </div>
+
+                <div>
+                    <small>Pengajuan Terbaru</small>
+
+                    <h4>
+                        {% if pengajuan %}
+                            {{ pengajuan[0].tanggal_pengajuan.strftime('%d-%m-%Y') }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="content-card">
+
+    <div class="card-header-custom">
+
+        <div>
+            <h5>Daftar Pengajuan</h5>
+            <p>Daftar seluruh pengajuan izin dan cuti karyawan.</p>
+        </div>
+
+        <button type="button"
+                class="btn btn-outline-secondary"
+                onclick="window.print()">
+
+            <i class="bi bi-printer me-1"></i>
+            Cetak
+
+        </button>
+
+    </div>
+
+
+    <!-- FILTER -->
+
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-5">
+
+            <label class="form-label">
+                Cari Karyawan
+            </label>
+
+            <div class="input-group">
+
+                <span class="input-group-text">
+                    <i class="bi bi-search"></i>
+                </span>
+
+                <input type="text"
+                       id="searchPengajuan"
+                       class="form-control"
+                       placeholder="Cari nama atau NIK...">
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <label class="form-label">
+                Status
+            </label>
+
+            <select id="filterStatus"
+                    class="form-select">
+
+                <option value="">Semua Status</option>
+                <option value="Menunggu">Menunggu</option>
+                <option value="Disetujui">Disetujui</option>
+                <option value="Ditolak">Ditolak</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <label class="form-label">
+                Jenis Cuti
+            </label>
+
+            <select id="filterJenis"
+                    class="form-select">
+
+                <option value="">Semua Jenis</option>
+
+                {% for item in pengajuan %}
+
+                    <option value="{{ item.nama_jenis }}">
+                        {{ item.nama_jenis }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- TABEL -->
+
+    <div class="table-responsive">
+
+        <table class="table custom-table"
+               id="tabelPengajuan">
+
+            <thead>
+
+                <tr>
+                    <th>No</th>
+                    <th>Karyawan</th>
+                    <th>Jabatan / Bagian</th>
+                    <th>Jenis</th>
+                    <th>Tanggal Pengajuan</th>
+                    <th>Periode Cuti</th>
+                    <th>Hari</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% if pengajuan %}
+
+                    {% for item in pengajuan %}
+
+                    <tr
+                        data-status="{{ item.status }}"
+                        data-jenis="{{ item.nama_jenis }}"
+                        data-search="{{ item.nama }} {{ item.nik }}">
+
+                        <td>
+                            {{ loop.index }}
+                        </td>
+
+                        <td>
+
+                            <div class="employee-info">
+
+                                <div class="employee-avatar">
+                                    <i class="bi bi-person"></i>
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        {{ item.nama }}
+                                    </strong>
+
+                                    <small>
+                                        NIK: {{ item.nik }}
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td>
+
+                            <strong>
+                                {{ item.jabatan }}
+                            </strong>
+
+                            <br>
+
+                            <small class="text-muted">
+                                {{ item.bagian }}
+                            </small>
+
+                        </td>
+
+                        <td>
+
+                            <span class="jenis-badge">
+                                <i class="bi bi-calendar-event me-1"></i>
+                                {{ item.nama_jenis }}
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <strong>
+                                {{ item.tanggal_pengajuan.strftime('%d-%m-%Y') }}
+                            </strong>
+
+                            <br>
+
+                            <small class="text-muted">
+                                {{ item.tanggal_pengajuan.strftime('%H:%M') }}
+                            </small>
+
+                        </td>
+
+                        <td>
+
+                            <strong>
+                                {{ item.tanggal_mulai.strftime('%d-%m-%Y') }}
+                            </strong>
+
+                            <br>
+
+                            <small class="text-muted">
+                                s/d {{ item.tanggal_selesai.strftime('%d-%m-%Y') }}
+                            </small>
+
+                        </td>
+
+                        <td>
+
+                            <span class="hari-badge">
+                                {{ item.jumlah_hari }}
+                                <small>hari</small>
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            {% if item.status == "Menunggu" %}
+
+                                <span class="status-badge waiting">
+                                    <i class="bi bi-hourglass-split"></i>
+                                    Menunggu
+                                </span>
+
+                            {% elif item.status == "Disetujui" %}
+
+                                <span class="status-badge approved">
+                                    <i class="bi bi-check-circle"></i>
+                                    Disetujui
+                                </span>
+
+                            {% elif item.status == "Ditolak" %}
+
+                                <span class="status-badge rejected">
+                                    <i class="bi bi-x-circle"></i>
+                                    Ditolak
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            <a href="{{ url_for(
+                                'detail_pengajuan',
+                                id_pengajuan=item.id_pengajuan
+                            ) }}"
+                               class="btn btn-sm btn-primary">
+
+                                <i class="bi bi-eye"></i>
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="9"
+                            class="text-center py-5">
+
+                            <div class="empty-state">
+
+                                <div class="empty-icon">
+                                    <i class="bi bi-inbox"></i>
+                                </div>
+
+                                <h5>
+                                    Belum Ada Pengajuan
+                                </h5>
+
+                                <p>
+                                    Belum ada pengajuan izin atau cuti dari karyawan.
+                                </p>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                {% endif %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <div id="dataTidakDitemukan"
+         class="text-center py-4"
+         style="display: none;">
+
+        <i class="bi bi-search fs-2 text-muted"></i>
+
+        <p class="mt-2 text-muted">
+            Data pengajuan tidak ditemukan.
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const searchInput =
+    document.getElementById("searchPengajuan");
+
+const statusFilter =
+    document.getElementById("filterStatus");
+
+const jenisFilter =
+    document.getElementById("filterJenis");
+
+const rows =
+    document.querySelectorAll(
+        "#tabelPengajuan tbody tr[data-status]"
+    );
+
+const tidakDitemukan =
+    document.getElementById("dataTidakDitemukan");
+
+const jumlahMenunggu =
+    document.getElementById("jumlahMenunggu");
+
+
+function filterData() {
+
+    const search =
+        searchInput.value.toLowerCase().trim();
+
+    const status =
+        statusFilter.value;
+
+    const jenis =
+        jenisFilter.value;
+
+    let jumlah = 0;
+
+    rows.forEach(function(row) {
+
+        const dataSearch =
+            row.dataset.search.toLowerCase();
+
+        const dataStatus =
+            row.dataset.status;
+
+        const dataJenis =
+            row.dataset.jenis;
+
+
+        const cocokSearch =
+            dataSearch.includes(search);
+
+        const cocokStatus =
+            status === "" ||
+            dataStatus === status;
+
+        const cocokJenis =
+            jenis === "" ||
+            dataJenis === jenis;
+
+
+        if (
+            cocokSearch &&
+            cocokStatus &&
+            cocokJenis
+        ) {
+
+            row.style.display = "";
+
+            jumlah++;
+
+        } else {
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+
+    if (jumlah === 0 && rows.length > 0) {
+
+        tidakDitemukan.style.display = "block";
+
+    } else {
+
+        tidakDitemukan.style.display = "none";
+
+    }
+
+}
+
+
+function hitungMenunggu() {
+
+    let total = 0;
+
+    rows.forEach(function(row) {
+
+        if (row.dataset.status === "Menunggu") {
+            total++;
+        }
+
+    });
+
+    jumlahMenunggu.textContent = total;
+
+}
+
+
+searchInput.addEventListener(
+    "input",
+    filterData
+);
+
+statusFilter.addEventListener(
+    "change",
+    filterData
+);
+
+jenisFilter.addEventListener(
+    "change",
+    filterData
+);
+
+hitungMenunggu();
+
+</script>
+
+{% endblock %}
