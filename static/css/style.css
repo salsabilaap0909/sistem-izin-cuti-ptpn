@@ -1557,3 +1557,387 @@ textarea.form-control {
     }
 
 }
+
+
+/* =====================================
+   PROFIL KARYAWAN - PTPN IV
+===================================== */
+
+.profile-page {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 0 30px;
+    color: #243b35;
+}
+
+/* JUDUL HALAMAN */
+
+.profile-page-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.profile-eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #218365;
+    margin-bottom: 7px;
+}
+
+.profile-page-heading h2 {
+    font-size: 28px;
+    font-weight: 750;
+    color: #173f32;
+    margin: 0 0 7px;
+}
+
+.profile-page-heading p {
+    color: #81918b;
+    font-size: 14px;
+    margin: 0;
+}
+
+.heading-icon {
+    width: 55px;
+    height: 55px;
+    background: #e4f3ec;
+    color: #197354;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+}
+
+/* HERO PROFILE */
+
+.profile-hero {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 30px;
+    border-radius: 18px;
+    background: linear-gradient(120deg, #17694f, #218766);
+    color: white;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 24px rgba(24, 105, 78, 0.13);
+}
+
+.hero-avatar {
+    width: 100px;
+    height: 100px;
+    min-width: 100px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255,255,255,0.17);
+    border: 3px solid rgba(255,255,255,0.45);
+    font-size: 48px;
+    color: white;
+}
+
+.hero-information {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #c5e7d8;
+}
+
+.hero-information h2 {
+    font-size: 27px;
+    font-weight: 750;
+    margin: 7px 0 12px;
+    color: white;
+}
+
+.hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-bottom: 15px;
+}
+
+.hero-meta span {
+    font-size: 13px;
+    color: #e0f1e9;
+}
+
+.hero-meta i {
+    margin-right: 5px;
+}
+
+.hero-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 13px;
+    border-radius: 30px;
+    background: rgba(255,255,255,0.17);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.hero-decoration {
+    position: absolute;
+    right: 30px;
+    bottom: -45px;
+    font-size: 190px;
+    color: rgba(255,255,255,0.07);
+    pointer-events: none;
+}
+
+/* KARTU INFORMASI */
+
+.profile-card {
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 17px;
+    border: 1px solid #e9efeb;
+    box-shadow: 0 5px 20px rgba(25, 60, 45, 0.045);
+}
+
+.profile-card-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 22px;
+    margin-bottom: 23px;
+    border-bottom: 1px solid #edf1ee;
+}
+
+.card-heading-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    background: #e9f5ee;
+    color: #187452;
+    font-size: 23px;
+}
+
+.profile-card-heading h4 {
+    font-size: 18px;
+    font-weight: 750;
+    margin: 0 0 5px;
+    color: #214c3c;
+}
+
+.profile-card-heading p {
+    font-size: 13px;
+    color: #89958f;
+    margin: 0;
+}
+
+/* GRID INFORMASI */
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 17px;
+}
+
+.profile-info-item,
+.profile-address {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 17px;
+    border: 1px solid #edf1ee;
+    border-radius: 12px;
+    background: #fbfdfb;
+    transition: all 0.25s ease;
+    min-width: 0;
+}
+
+.profile-info-item:hover,
+.profile-address:hover {
+    background: #f0f8f3;
+    border-color: #c6e4d2;
+    transform: translateY(-2px);
+}
+
+.info-icon {
+    width: 43px;
+    height: 43px;
+    min-width: 43px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e5f3eb;
+    color: #19805b;
+    font-size: 19px;
+}
+
+.info-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.info-content span {
+    color: #89958f;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.info-content strong {
+    color: #263d34;
+    font-size: 14px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.info-content .info-status {
+    color: #198052;
+}
+
+/* ALAMAT */
+
+.profile-address {
+    margin-top: 17px;
+    align-items: flex-start;
+}
+
+.profile-address .info-content strong {
+    line-height: 1.6;
+}
+
+/* TOMBOL */
+
+.profile-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.profile-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    text-decoration: none !important;
+    font-size: 13px;
+    font-weight: 700;
+    transition: all 0.25s ease;
+}
+
+.btn-back {
+    background: white;
+    border: 1px solid #dce7df;
+    color: #426052;
+}
+
+.btn-back:hover {
+    background: #edf6f0;
+    color: #17694f;
+    transform: translateY(-2px);
+}
+
+.btn-apply {
+    background: #187653;
+    color: white;
+    box-shadow: 0 4px 12px rgba(24,118,83,0.15);
+}
+
+.btn-apply:hover {
+    background: #105c40;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* RESPONSIVE TABLET DAN HP */
+
+@media (max-width: 768px) {
+
+    .profile-page {
+        padding: 5px 0 20px;
+    }
+
+    .profile-page-heading h2 {
+        font-size: 23px;
+    }
+
+    .profile-hero {
+        padding: 22px;
+        gap: 15px;
+    }
+
+    .hero-avatar {
+        width: 75px;
+        height: 75px;
+        min-width: 75px;
+        font-size: 36px;
+    }
+
+    .hero-information h2 {
+        font-size: 20px;
+    }
+
+    .hero-decoration {
+        display: none;
+    }
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-card {
+        padding: 20px;
+    }
+
+    .profile-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .profile-btn {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .profile-hero {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .hero-meta {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .profile-card-heading h4 {
+        font-size: 16px;
+    }
+
+    .heading-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 21px;
+    }
+}

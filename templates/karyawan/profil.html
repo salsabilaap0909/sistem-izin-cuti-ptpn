@@ -1,209 +1,163 @@
+
 {% extends "karyawan/base_karyawan.html" %}
 
 {% block title %}Profil Saya{% endblock %}
-
 {% block page_title %}Profil Saya{% endblock %}
-
 
 {% block content %}
 
-<div class="page-header">
+<div class="profile-page">
 
-    <div>
-        <h2>Profil Saya</h2>
-        <p>
-            Informasi data diri karyawan yang terdaftar pada sistem.
-        </p>
+    <!-- JUDUL HALAMAN -->
+    <div class="profile-page-heading">
+        <div>
+            <span class="profile-eyebrow">AKUN KARYAWAN</span>
+            <h2>Profil Saya</h2>
+            <p>Kelola dan lihat informasi data diri yang terdaftar pada sistem.</p>
+        </div>
+        <div class="heading-icon">
+            <i class="bi bi-person-vcard"></i>
+        </div>
     </div>
 
-</div>
+    <!-- KARTU IDENTITAS -->
+    <div class="profile-hero">
 
-
-<div class="profile-container">
-
-    <!-- HEADER PROFIL -->
-    <div class="profile-header">
-
-        <div class="profile-avatar">
+        <div class="hero-avatar">
             <i class="bi bi-person-fill"></i>
         </div>
 
-        <div class="profile-name">
+        <div class="hero-information">
+            <span class="hero-label">PROFIL KARYAWAN</span>
+            <h2>{{ karyawan.nama }}</h2>
 
-            <h3>
-                {{ karyawan.nama }}
-            </h3>
+            <div class="hero-meta">
+                <span>
+                    <i class="bi bi-briefcase-fill"></i>
+                    {{ karyawan.jabatan }}
+                </span>
+                <span>
+                    <i class="bi bi-building"></i>
+                    {{ karyawan.bagian }}
+                </span>
+            </div>
 
-            <p>
-                <i class="bi bi-briefcase-fill"></i>
-                {{ karyawan.jabatan }}
-            </p>
-
-            <span class="profile-status">
+            <span class="hero-status">
                 <i class="bi bi-check-circle-fill"></i>
                 {{ karyawan.status }}
             </span>
+        </div>
 
+        <div class="hero-decoration">
+            <i class="bi bi-person-badge"></i>
         </div>
 
     </div>
 
+    <!-- INFORMASI PRIBADI -->
+    <div class="profile-card">
 
-    <!-- DATA PROFIL -->
-    <div class="profile-body">
-
-        <div class="profile-section-title">
-
-            <div class="section-icon">
-                <i class="bi bi-person-vcard-fill"></i>
+        <div class="profile-card-heading">
+            <div class="card-heading-icon">
+                <i class="bi bi-person-lines-fill"></i>
             </div>
-
             <div>
-                <h5>Informasi Pribadi</h5>
-                <p>Data pribadi yang terdaftar pada sistem.</p>
+                <h4>Informasi Pribadi</h4>
+                <p>Informasi lengkap mengenai identitas karyawan.</p>
             </div>
-
         </div>
-
 
         <div class="profile-grid">
 
-            <!-- NIK -->
-            <div class="profile-item">
-
-                <div class="profile-item-icon">
-                    <i class="bi bi-card-text"></i>
+            <div class="profile-info-item">
+                <div class="info-icon">
+                    <i class="bi bi-card-heading"></i>
                 </div>
-
-                <div>
-                    <span>NIK</span>
+                <div class="info-content">
+                    <span>NIK Karyawan</span>
                     <strong>{{ karyawan.nik }}</strong>
                 </div>
-
             </div>
 
-
-            <!-- NAMA -->
-            <div class="profile-item">
-
-                <div class="profile-item-icon">
+            <div class="profile-info-item">
+                <div class="info-icon">
                     <i class="bi bi-person"></i>
                 </div>
-
-                <div>
+                <div class="info-content">
                     <span>Nama Lengkap</span>
                     <strong>{{ karyawan.nama }}</strong>
                 </div>
-
             </div>
 
-
-            <!-- JABATAN -->
-            <div class="profile-item">
-
-                <div class="profile-item-icon">
+            <div class="profile-info-item">
+                <div class="info-icon">
                     <i class="bi bi-briefcase"></i>
                 </div>
-
-                <div>
+                <div class="info-content">
                     <span>Jabatan</span>
                     <strong>{{ karyawan.jabatan }}</strong>
                 </div>
-
             </div>
 
-
-            <!-- BAGIAN -->
-            <div class="profile-item">
-
-                <div class="profile-item-icon">
+            <div class="profile-info-item">
+                <div class="info-icon">
                     <i class="bi bi-building"></i>
                 </div>
-
-                <div>
-                    <span>Bagian</span>
+                <div class="info-content">
+                    <span>Bagian / Divisi</span>
                     <strong>{{ karyawan.bagian }}</strong>
                 </div>
-
             </div>
 
-
-            <!-- NO HP -->
-            <div class="profile-item">
-
-                <div class="profile-item-icon">
+            <div class="profile-info-item">
+                <div class="info-icon">
                     <i class="bi bi-telephone"></i>
                 </div>
-
-                <div>
-                    <span>No. HP</span>
-                    <strong>
-                        {{ karyawan.no_hp or '-' }}
-                    </strong>
+                <div class="info-content">
+                    <span>Nomor Handphone</span>
+                    <strong>{{ karyawan.no_hp or '-' }}</strong>
                 </div>
-
             </div>
 
-
-            <!-- STATUS -->
-            <div class="profile-item">
-
-                <div class="profile-item-icon">
-                    <i class="bi bi-check-circle"></i>
+            <div class="profile-info-item">
+                <div class="info-icon">
+                    <i class="bi bi-shield-check"></i>
                 </div>
-
-                <div>
+                <div class="info-content">
                     <span>Status Karyawan</span>
-
-                    <strong class="status-active">
-                        {{ karyawan.status }}
-                    </strong>
+                    <strong class="info-status">{{ karyawan.status }}</strong>
                 </div>
-
             </div>
 
         </div>
 
-
         <!-- ALAMAT -->
         <div class="profile-address">
-
-            <div class="profile-item-icon">
+            <div class="info-icon">
                 <i class="bi bi-geo-alt"></i>
             </div>
-
-            <div>
-
-                <span>Alamat</span>
-
-                <strong>
-                    {{ karyawan.alamat or '-' }}
-                </strong>
-
+            <div class="info-content">
+                <span>Alamat Lengkap</span>
+                <strong>{{ karyawan.alamat or '-' }}</strong>
             </div>
-
         </div>
 
     </div>
 
+    <!-- TOMBOL AKSI -->
+    <div class="profile-actions">
 
-    <!-- FOOTER -->
-    <div class="profile-footer">
-
-        <a
-            href="{{ url_for('dashboard_karyawan') }}"
-            class="btn btn-secondary"
-        >
+        <a href="{{ url_for('dashboard_karyawan') }}"
+           class="profile-btn btn-back">
             <i class="bi bi-arrow-left"></i>
             Kembali ke Dashboard
         </a>
 
-        <a
-            href="{{ url_for('ajukan_cuti') }}"
-            class="btn btn-primary"
-        >
+        <a href="{{ url_for('ajukan_cuti') }}"
+           class="profile-btn btn-apply">
             <i class="bi bi-file-earmark-plus"></i>
             Ajukan Izin / Cuti
+            <i class="bi bi-arrow-right"></i>
         </a>
 
     </div>
